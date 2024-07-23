@@ -35,7 +35,7 @@ public class Clase_Repaso_16072024 {
        /*
        La computadora no hace nada que noostros no le digamos
        */
-      JOptionPane.showMessageDialog(null, "este es mi mensaje", "MENU",0);
+      JOptionPane.showMessageDialog(null, "este es mi mensaje");
         System.out.println("BUSQUEDA BINARIA");
         int [] arreglo = {1,4,6,7,9};
         int resp = busquedaBinaria(arreglo,7,0,arreglo.length-1);
