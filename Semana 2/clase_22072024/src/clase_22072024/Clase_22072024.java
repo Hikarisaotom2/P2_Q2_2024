@@ -4,6 +4,8 @@
  */
 package clase_22072024;
 
+import java.util.Scanner;
+
 /**
  *
  * @author claudiacortes
@@ -14,7 +16,6 @@ public class Clase_22072024 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+       
     }
-    
 }
