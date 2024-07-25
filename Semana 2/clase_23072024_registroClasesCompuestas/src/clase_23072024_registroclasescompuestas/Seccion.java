@@ -13,10 +13,10 @@ public class Seccion {
     private String campus;
     private int numseccion;
     private int codigoclase;
-    private int hora;
+    private String hora;
     
 
-    public Seccion(String campus, int numseccion, int codigoclase, int hora) {
+    public Seccion(String campus, int numseccion, int codigoclase, String hora) {
         this.campus = campus;
         this.numseccion = numseccion;
         this.codigoclase = codigoclase;
@@ -47,11 +47,11 @@ public class Seccion {
         this.codigoclase = codigoclase;
     }
 
-    public int getHora() {
+    public String getHora() {
         return hora;
     }
 
-    public void setHora(int hora) {
+    public void setHora(String hora) {
         this.hora = hora;
     }
 

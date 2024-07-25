@@ -1,64 +1,16 @@
-package clase_23072024_registroclasescompuestas;
-
+package semana2p2;
+import javax.swing.JOptionPane;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
-import java.util.Set;
-import javax.swing.JOptionPane;
 
-/**
- *
- * @author claudiacortes
- */
-public class Clase_23072024_registroClasesCompuestas {
-  public static ArrayList<Alumnos> alumnos = new ArrayList<Alumnos>();
+public class Semana2P2 {
+    
+    public static ArrayList<Alumnos> alumnos = new ArrayList<Alumnos>();
     public static ArrayList<Seccion> secciones = new ArrayList<Seccion>();
     public static ArrayList<Clase_Asistencia> clases = new ArrayList<Clase_Asistencia>();
     public static ArrayList<Docente> docentes = new ArrayList<Docente>();
-    
-   
-    //Agregando secciones 
     public static int contador = 0;
     
-        public static void main(String[] args) {
-            //agregando alumnos al sistema manualmente
-            alumnos.add(new Alumnos(1234,"Josue",0));
-            alumnos.add(new Alumnos(1235,"Ana",0));
-            alumnos.add(new Alumnos(1236,"Miguel",0));
-            alumnos.add(new Alumnos(1234,"Nahun",0));
-            //agregando asecciones manualmente al sistema
-            secciones.add(new Seccion("TGU",1234,1234,"5:10 PM"));
-            secciones.add(new Seccion("TGU",3451,7483,"7:00 AM"));
-            secciones.add(new Seccion("TGU",3819,7638,"8:30 AM"));
-            secciones.add(new Seccion("TGU",9814,9876,"6:30 PM"));
-            // agregando una clase manualmente al sistema
-            clases.add(new Clase_Asistencia(secciones.get(0),alumnos, "Programacion II"));
-            clases.add(new Clase_Asistencia(secciones.get(1),alumnos));
-            
-            
-        boolean bandera = true;
-        while (bandera) {
-            String opcion = JOptionPane.showInputDialog(null, "Menú \n 0. Salir \n 1. Maestros \n 2. Administrativos \n Ingrese una opción: ");
-            opcion = Corroborar(opcion);
-            int op = Integer.parseInt(opcion);
-            switch (op) {
-                case 0 -> {
-                    bandera = false;
-                    JOptionPane.showMessageDialog(null, "Saliendo...", "Salir del programa", 1);
-                }
-                case 1 -> {
-                    MenuDocente();
-                }
-                case 2 -> {
-                    MenuAdministrativos();
-                }
-                default -> {
-                    JOptionPane.showMessageDialog(null, "Esa no es una opción, lo regresaremos al menú", "Regresando...", 1);
-                }
-            }
-        }
-    }
-        
     public static String Corroborar(String cadena) {
         boolean verificacion = false;
         while(!verificacion) {
@@ -80,7 +32,7 @@ public class Clase_23072024_registroClasesCompuestas {
     public static void MenuAdministrativos() {
         boolean bandera = true;
         while(bandera) {
-            String opcion = JOptionPane.showInputDialog(null, "Menú \n 1. Entrar Al CRUD Estudiantil \n 2. Entrar Al CRUD de Secciones \n 3. Entrar Al CRUD de docentes \n 4. Agregar clase \n5.Listar Clases \n 6. Salir");
+            String opcion = JOptionPane.showInputDialog(null, "Menú \n 1. Entrar Al CRUD Estudiantil \n 2. Entrar Al CRUD de Secciones \n 3. Entrar Al CRUD de docentes \n 4. Agregar clase \n 5. Salir");
             opcion = Corroborar(opcion);
             int option = Integer.parseInt(opcion);
             switch(option) {
@@ -100,15 +52,10 @@ public class Clase_23072024_registroClasesCompuestas {
                         JOptionPane.showMessageDialog(null, "Por el momento no se puede agregar clases", "No hay secciones y/o alumnos", 3);
                     }
                 }
-                case 5->{
-                    JOptionPane.showMessageDialog(null, ListarTodasLasClases(), "LISTA DE CLASES", 3);
-                    
-                }
-                case 6 -> {
+                case 5 -> {
                     JOptionPane.showMessageDialog(null, "Usted ha salido del sistema administrativo", "Saliendo", 1);
                     bandera = false;
                 }
-                
                 default -> {
                     JOptionPane.showMessageDialog(null, "Esa opción no es válida \n Lo regresaremos al menú", "Opción no válida", 1);
                 }
@@ -266,7 +213,29 @@ public class Clase_23072024_registroClasesCompuestas {
         return clasesYalumnos;
     }
     
-
+    public static void main(String[] args) {
+        boolean bandera = true;
+        while (bandera) {
+            String opcion = JOptionPane.showInputDialog(null, "Menú \n 0. Salir \n 1. Maestros \n 2. Administrativos \n Ingrese una opción: ");
+            opcion = Corroborar(opcion);
+            int op = Integer.parseInt(opcion);
+            switch (op) {
+                case 0 -> {
+                    bandera = false;
+                    JOptionPane.showMessageDialog(null, "Saliendo...", "Salir del programa", 1);
+                }
+                case 1 -> {
+                    MenuDocente();
+                }
+                case 2 -> {
+                    MenuAdministrativos();
+                }
+                default -> {
+                    JOptionPane.showMessageDialog(null, "Esa no es una opción, lo regresaremos al menú", "Regresando...", 1);
+                }
+            }
+        }
+    }
     
     public static void CRUDAlumno() {
         boolean bandera = true;
@@ -391,7 +360,7 @@ public class Clase_23072024_registroClasesCompuestas {
     public static int BuscarSeccion(int codeClass) {
         int pos = -1;
         for (int i = 0; i < secciones.size(); i++) {
-            if(secciones.get(i).getCodigoclase() == codeClass) {
+            if(secciones.get(i).getCodigoClase() == codeClass) {
                 pos = i;
                 break;
             }
@@ -419,8 +388,7 @@ public class Clase_23072024_registroClasesCompuestas {
             clase.setContador(contador);
             contador++;
             
-            clase.setInfo_seccion(seccionAgregar);
-            
+            clase.setInfoSeccion(seccionAgregar);
             boolean bandera = true;
             while (bandera) {
                 String opcion = JOptionPane.showInputDialog(null, "1. Seguir agregando alumnos \n 2. Salir \n Ingrese una opción: ", "Vinculando Estudiantes", 1);
@@ -433,7 +401,7 @@ public class Clase_23072024_registroClasesCompuestas {
                         int posAlumno = Integer.parseInt(posicion);
                         if (posAlumno < alumnos.size()) {
                             Alumnos alumnoAgregar = alumnos.get(posAlumno);
-                            clase.matricularAlumno(alumnoAgregar);
+                            clase.MatricularAlumno(alumnoAgregar);
                         } else {
                             JOptionPane.showMessageDialog(null, "Posición inválida");
                         }
@@ -459,6 +427,5 @@ public class Clase_23072024_registroClasesCompuestas {
         }
         return aulas;
     }
-
-}// fin de la clase 
-
+    
+}

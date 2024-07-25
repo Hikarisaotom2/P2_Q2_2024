@@ -1,17 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package clase_23072024_registroclasescompuestas;
-
+package semana2p2;
 import java.util.ArrayList;
 
-/**
- *
- * @author claudiacortes
- */
-
-/*Clase compuesta*/
 public class Docente {
     private int id;
     private String nombre;
@@ -52,8 +41,10 @@ public class Docente {
     public ArrayList<Clase_Asistencia> getClases() {
         return clases;
     }
-    
+
     public void DarleClases(Clase_Asistencia clases) {
         this.clases.add(clases);
     }
+    
+    
 }
