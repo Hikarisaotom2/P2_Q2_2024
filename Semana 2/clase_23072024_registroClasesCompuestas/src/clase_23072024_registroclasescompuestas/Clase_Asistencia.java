@@ -130,5 +130,26 @@ public class Clase_Asistencia {
     public void matricularAlumno (Alumnos NuevoAlumno){
         this.lista_alumnos.add(NuevoAlumno); 
     }
+
+    
+    public  void marcarAsistencia(){
+         for (int i = 0; i <lista_alumnos.size(); i++) {
+           //NOTA: AQUI SE DEBERIA PREGUNTAR SI EL ALUMNO ESTA PRESENTE O NO
+           //por fines practicos, a todos los alumnos les ca,biaremos las asistencias
+           Alumnos alumno = lista_alumnos.get(i);
+           alumno.setAsistencia(101);
+           
+        }
+    }
+    @Override
+    public String toString() {
+        String estudiantes = "\n";
+        for (int i = 0; i <lista_alumnos.size(); i++) {
+            estudiantes +=  lista_alumnos.get(i).getNombre() + " "+ lista_alumnos.get(i).getAsistencia() +"\n";
+        }
+        return "Nombre; "+nombre +" info seccion: "+info_seccion +estudiantes;
+    }
+    
+    
     
 }

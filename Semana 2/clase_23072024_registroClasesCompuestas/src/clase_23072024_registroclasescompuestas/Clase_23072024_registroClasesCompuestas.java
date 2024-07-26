@@ -23,17 +23,35 @@ public class Clase_23072024_registroClasesCompuestas {
         public static void main(String[] args) {
             //agregando alumnos al sistema manualmente
             alumnos.add(new Alumnos(1234,"Josue",0));
-            alumnos.add(new Alumnos(1235,"Ana",0));
+            alumnos.add(new Alumnos(1234,"Josue",0));
             alumnos.add(new Alumnos(1236,"Miguel",0));
             alumnos.add(new Alumnos(1234,"Nahun",0));
+            
+            //ejemplo de enlaces / uso de referencias de los objetos. 
+            //OJO: ESTO SOLO FUNCIONA PARA LOS OBJETOS.
+             // persona1 = direccion: hsjgdd7383735, hascode: 6498448
+            Alumnos persona1 = alumnos.get(0);
+            //persona2 = persona1 --> persona2 = direccion: hsjgdd7383735, hascode: 6498448
+            Alumnos persona2 = persona1;
+            System.out.println("El nombre de persona 1 es "+ persona1.getNombre());
+            persona2.setNombre("Pedro pablo");
+            System.out.println("El nombre de persona 1 es "+ persona1.getNombre());
+            System.out.println("HASCODES DE PERSONA 1 Y PERSONA 2");
+             System.out.println("El id del objeto es "+persona2.hashCode());
+            System.out.println("El id del objeto es "+persona1.hashCode());
+            
             //agregando asecciones manualmente al sistema
             secciones.add(new Seccion("TGU",1234,1234,"5:10 PM"));
             secciones.add(new Seccion("TGU",3451,7483,"7:00 AM"));
             secciones.add(new Seccion("TGU",3819,7638,"8:30 AM"));
-            secciones.add(new Seccion("TGU",9814,9876,"6:30 PM"));
+            secciones.add(new Seccion("TGU",9814,9876,"6:30 PM"));          
+            
             // agregando una clase manualmente al sistema
             clases.add(new Clase_Asistencia(secciones.get(0),alumnos, "Programacion II"));
             clases.add(new Clase_Asistencia(secciones.get(1),alumnos));
+            
+            //AGREGANDO DOCENTE MANUALMENTE.
+            docentes.add(new Docente(1234,"Claudia","claudia",clases));
             
             
         boolean bandera = true;
@@ -150,6 +168,9 @@ public class Clase_23072024_registroClasesCompuestas {
         teacher.setPassword(password);
         teacher.setId(id);
         boolean bandera = true;
+        /*
+        NOTA: Podriamos mover este fragmento de codigo, a un metodo que se llame actualizar clases, y reutilizarlo al momento de modificar los datos del maestro en el crud
+        */
         while(bandera) {
             String option = JOptionPane.showInputDialog(null, "0. Salir \n 1. Añadirle una clase al docente ", "Añadiendo clases", 1);
             option = Corroborar(option);
@@ -214,18 +235,19 @@ public class Clase_23072024_registroClasesCompuestas {
     
     public static void MenuDocente() {
         boolean bandera = true;
-        String nombre = JOptionPane.showInputDialog(null, "Ingrese su nombre: ", "LOG IN TEACHER", 1);
-        int pos = BuscarDocente(nombre);
-        if(pos > -1) {
-            String password = JOptionPane.showInputDialog(null, "Ingrese su contraseña", "LOG IN TEACHER", 1);
-            int pos2 = BuscarContraseñaDelDocente(password);
-            if(pos2 <= -1) {
-                bandera = false;
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "No hay ningún docente con ese nombre", "FAIL LOG IN", 3);
-            bandera = false;
-        }
+        int pos = 0;
+//        String nombre = JOptionPane.showInputDialog(null, "Ingrese su nombre: ", "LOG IN TEACHER", 1);
+//        int pos = BuscarDocente(nombre);
+//        if(pos > -1) {
+//            String password = JOptionPane.showInputDialog(null, "Ingrese su contraseña", "LOG IN TEACHER", 1);
+//            int pos2 = BuscarContraseñaDelDocente(password);
+//            if(pos2 <= -1) {
+//                bandera = false;
+//            }
+//        } else {
+//            JOptionPane.showMessageDialog(null, "No hay ningún docente con ese nombre", "FAIL LOG IN", 3);
+//            bandera = false;
+//        }
         while(bandera) {
             String opcion = JOptionPane.showInputDialog(null, "Menú \n 0. Salir \n 1. Listar clases \n 2. Pasar asistencia \n 3. Registrar asistencia \n 4. Listar asistencia del dia");
             opcion = Corroborar(opcion);
@@ -240,7 +262,20 @@ public class Clase_23072024_registroClasesCompuestas {
                     JOptionPane.showMessageDialog(null, "Estas son sus clases: \n "+clases, "Lista De Sus Clases", 1);
                 }
                 case 2 -> {
-                    
+                     Docente maestro = docentes.get(pos);
+                     String clases = ListarSusClases(pos);
+                     JOptionPane.showMessageDialog(null, "Estas son sus clases: \n "+clases, "Lista De Sus Clases", 1);
+                      String clase = JOptionPane.showInputDialog(null, "Que clase desea marcar: ");
+                      String posClaseString  = Corroborar(clase);
+                      int pos_clase = Integer.parseInt(posClaseString);
+                      Clase_Asistencia claseMarcarLista = maestro.getClases().get(pos_clase);
+                      //ejemp,o de alternativa
+//                      String texto = claseMarcarLista.toString();
+//                      JOptionPane.showMessageDialog(null, texto, "INFORMACION DE LA CLASE", 1);
+                    JOptionPane.showMessageDialog(null, claseMarcarLista, "INFORMACION DE LA CLASE", 1);
+                    claseMarcarLista.marcarAsistencia();
+                    JOptionPane.showMessageDialog(null, claseMarcarLista, "SE ACTUALIZO LA INFORMACION DE LA ASISTENCIA", 1);
+                       
                 }
                 case 3 -> {
                     
