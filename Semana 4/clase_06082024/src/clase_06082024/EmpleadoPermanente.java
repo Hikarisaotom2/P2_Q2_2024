@@ -20,9 +20,9 @@ public class EmpleadoPermanente extends Empleado{
         // No se debe hacer ningun calculo, por que el sueldo ya esta fijado.
         return this.sueldoMensual;
     }
-         @Override 
+          @Override 
       public void generarBoletaPago(){
-//               1) IHSS: 500 lps. 
+//             1) IHSS: 500 lps. 
 //            2) RAP: 300 lps. 
 //            3) AFP: 300 lps. 
 //            4) ISR: 5 %

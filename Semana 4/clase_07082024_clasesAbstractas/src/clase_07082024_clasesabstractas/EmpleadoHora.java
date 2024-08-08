@@ -2,14 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package clase_06082024;
+package clase_07082024_clasesabstractas;
 
 /**
  *
  * @author claudiacortes
  */
-public class EmpleadoHora extends Empleado {
 
+/*
+Cuando una clase hija hereda de una clase abstracta, 
+esta OBLIGADA a implementar o sobreescribir los metodos abstractos del padre
+*/
+public class EmpleadoHora extends Empleado{
     private int cantHoras;
     private double tarifa;
 
@@ -18,8 +22,8 @@ public class EmpleadoHora extends Empleado {
         this.cantHoras = cantHoras;
         this.tarifa = tarifa;
     }
-
-    @Override
+    
+        @Override
     public double calcularSueldo() {
         // el empleado por hora tiene un sueldo que se calcula en base a la cantidad de horas trabajadas multiplicado por la tarifa.
         return this.cantHoras * this.tarifa;
@@ -34,7 +38,5 @@ public class EmpleadoHora extends Empleado {
         System.out.println("Deducciones: ................... lps.0");
         System.out.println("TOTAL____________________________lps. " + calcularSueldo());
     }
-
+    
 }
-
-

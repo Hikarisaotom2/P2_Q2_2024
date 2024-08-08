@@ -13,9 +13,18 @@ public class Clase_06082024 {
      */
     public static void main(String[] args) {
         /*
+        Polimorfismo
+    1. Sobreescritura simple 
+        -> el metodo polimorfico que vamos a sobreescribir, debe teer la misma estructira que el padre
+        -> El hijo puede o no decidir si implementar el polimorfismo. 
+    2. Clases abstractas 
+
+    3. Interfaces
+    */
+        /*
          MINI SISTEMA DE PAGOS DE RRHH
         1) listar empleados creados en el sistema (precargados)
-        2) Calcular los sueldos delmes de cada empleado
+        2) Calcular los sueldos del mes de cada empleado
         3) Generar boleta de pago para cada empleado. 
         
         
@@ -29,7 +38,7 @@ public class Clase_06082024 {
             2) RAP: 300 lps. 
             3) AFP: 300 lps. 
             4) ISR: 5 %
-            Estas deducciones aplican unicamente a los empleados permanentes, elempleado por hora no posee ningun tipo de deducciones.
+            Estas deducciones aplican unicamente a los empleados permanentes, el empleado por hora no posee ningun tipo de deducciones.
         
         */
         //int cantHoras, double tarifa, int numTalentohumano, String nombre, String apellido, String puesto
