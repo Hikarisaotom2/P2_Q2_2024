@@ -7,13 +7,19 @@
  *
  * @author claudiacortes
  */
+
 //cuando se trabaja con interface,no se utiliza lapalabra extennds, 
 // a cambio se utiliza la palabra . implements
-public class EmpleadoHora implements Empleado{
+// extends -> herencia 
+// implments -> asociar a las reglas de la interfaz 
+// al mezclar herencia con interfaces, SIEMPRE se debe empezar por la herencia y luego la implementacion de la interfaz
+class EmpleadoHora extends Empleado1 implements Empleado{
            private int cantHoras;
-         private double tarifa;
+           private double tarifa;
+           private final String empresa ="UNITEC"; // crear una constante en una clase.
 
-    public EmpleadoHora(int cantHoras, double tarifa) {
+    public EmpleadoHora(int cantHoras, double tarifa, int numTalentohumano, String nombre, String apellido, String puesto) {
+        super(numTalentohumano, nombre, apellido, puesto);
         this.cantHoras = cantHoras;
         this.tarifa = tarifa;
     }

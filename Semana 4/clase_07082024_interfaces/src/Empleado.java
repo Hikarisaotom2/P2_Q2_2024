@@ -8,10 +8,11 @@
  * @author claudiacortes
  */
 public interface Empleado {
-    int numTalentohumano = 123;
-    String nombre = "";
-    String apellido ="";
-    String puesto ="";
+    //No nos funciona que estos atributos esten qui, por que son constantes, entonces no los podemos actualizar
+//    final int numTalentohumano = 123;
+//    String nombre = "";
+//    String apellido ="";
+//    String puesto ="";
     
     public  void generarBoletaPago(); // el uso del abstract dentro de las interface es opcional
     public abstract double calcularSueldo();
