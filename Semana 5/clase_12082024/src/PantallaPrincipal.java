@@ -1,3 +1,8 @@
+
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -14,6 +19,29 @@ public class PantallaPrincipal extends javax.swing.JFrame {
      */
     public PantallaPrincipal() {
         initComponents();
+        //ya tenemos los componenetes creados y monstrandose en el jframe
+        // el jframe aun no se esta mostrando al usuario por que el constructor no ha terminado de ejecutarse
+        
+        /* 
+        1. el usuario escribe 
+        2. el listener detecta que escribimos y mira que escribimos (por cada letra)
+        3. entramos al metodo keyTyped
+        4. una vez que se ejecuta el metodo keyTyped, se actualiza lo que se escribio en el textfield
+        */
+        
+       txtNumero1.addKeyListener(new KeyAdapter(){
+       @Override
+       public void keyTyped(KeyEvent e){
+           char carac = e.getKeyChar(); //obtener la ultima letra que se escribio
+           if(Character.isDigit(carac)){
+               System.out.println("es un numero ");
+           }else{
+               JOptionPane.showMessageDialog(rootPane, "error","ingrese un numero",1);
+               e.consume(); // eliminamos la letra 
+           }
+       }
+
+       });
     }
 
     /**
@@ -35,6 +63,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         btnRestar = new javax.swing.JButton();
         lblNumero3 = new javax.swing.JLabel();
         txtNumero2 = new javax.swing.JTextField();
+        jcbOpciones = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -58,7 +87,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         lblTitulo.setForeground(new java.awt.Color(102, 102, 102));
         lblTitulo.setText("OPERACIONES MATEMATICAS");
         jPanel1.add(lblTitulo);
-        lblTitulo.setBounds(190, 20, 410, 40);
+        lblTitulo.setBounds(130, 20, 410, 40);
 
         txtResultado.setEditable(false);
         txtResultado.setToolTipText("Ingrese el segundo numero");
@@ -88,6 +117,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         btnRestar.setBackground(new java.awt.Color(0, 255, 255));
         btnRestar.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         btnRestar.setText("RESTAR");
+        btnRestar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRestarMouseClicked(evt);
+            }
+        });
         jPanel1.add(btnRestar);
         btnRestar.setBounds(390, 370, 150, 29);
 
@@ -101,6 +135,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jPanel1.add(txtNumero2);
         txtNumero2.setBounds(210, 200, 370, 50);
 
+        jcbOpciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "suma", "resta", "multiplicacion", "division" }));
+        jPanel1.add(jcbOpciones);
+        jcbOpciones.setBounds(210, 80, 370, 30);
+
         getContentPane().add(jPanel1);
         jPanel1.setBounds(10, 10, 750, 520);
 
@@ -112,11 +150,20 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNumero1ActionPerformed
 
     private void btnSumarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSumarMouseClicked
-       int numero1= Integer.parseInt(txtNumero1.getText());
+
+        int numero1= Integer.parseInt(txtNumero1.getText());
        int numero2= Integer.parseInt(txtNumero2.getText());
        total = numero1+numero2;
        txtResultado.setText(total+"");
+       
     }//GEN-LAST:event_btnSumarMouseClicked
+
+    private void btnRestarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRestarMouseClicked
+        int numero1= Integer.parseInt(txtNumero1.getText());
+       int numero2= Integer.parseInt(txtNumero2.getText());
+       total = numero1-numero2;
+       txtResultado.setText(total+"");
+    }//GEN-LAST:event_btnRestarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -159,6 +206,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnRestar;
     private javax.swing.JButton btnSumar;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JComboBox<String> jcbOpciones;
     private javax.swing.JLabel lblNumero1;
     private javax.swing.JLabel lblNumero3;
     private javax.swing.JLabel lblResultado;
