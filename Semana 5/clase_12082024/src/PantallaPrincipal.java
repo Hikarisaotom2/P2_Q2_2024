@@ -1,6 +1,9 @@
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /*
@@ -42,6 +45,19 @@ public class PantallaPrincipal extends javax.swing.JFrame {
        }
 
        });
+             btnRestar.setVisible(false);
+            btnSumar.setVisible(false);
+              txtResultado.setVisible(false);
+            lblResultado.setVisible(false);
+            jcbOpciones.setVisible(false);
+            jcbPersonas.setVisible(false);
+            btnAgregar.setVisible(false);
+            lblTitulo.setText("menu principal");
+            lblNumero1.setVisible(false);
+            lblNumero3.setVisible(false);
+            txtNumero1.setVisible(false);
+            txtNumero2.setVisible(false);
+       
     }
 
     /**
@@ -64,6 +80,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         lblNumero3 = new javax.swing.JLabel();
         txtNumero2 = new javax.swing.JTextField();
         jcbOpciones = new javax.swing.JComboBox<>();
+        jcbMenu = new javax.swing.JComboBox<>();
+        btnAgregar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        jcbPersonas = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -75,24 +96,24 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         lblNumero1.setForeground(new java.awt.Color(102, 102, 102));
         lblNumero1.setText("Numero 1 ");
         jPanel1.add(lblNumero1);
-        lblNumero1.setBounds(30, 140, 410, 40);
+        lblNumero1.setBounds(20, 170, 410, 40);
 
         lblResultado.setFont(new java.awt.Font("Lao MN", 3, 24)); // NOI18N
         lblResultado.setForeground(new java.awt.Color(102, 102, 102));
         lblResultado.setText("RESULTADO:");
         jPanel1.add(lblResultado);
-        lblResultado.setBounds(100, 290, 180, 40);
+        lblResultado.setBounds(50, 330, 180, 40);
 
         lblTitulo.setFont(new java.awt.Font("Lao MN", 3, 24)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(102, 102, 102));
         lblTitulo.setText("OPERACIONES MATEMATICAS");
         jPanel1.add(lblTitulo);
-        lblTitulo.setBounds(130, 20, 410, 40);
+        lblTitulo.setBounds(150, 10, 410, 40);
 
         txtResultado.setEditable(false);
         txtResultado.setToolTipText("Ingrese el segundo numero");
         jPanel1.add(txtResultado);
-        txtResultado.setBounds(270, 280, 370, 50);
+        txtResultado.setBounds(260, 310, 370, 50);
 
         txtNumero1.setToolTipText("ingrese el primer numero ");
         txtNumero1.addActionListener(new java.awt.event.ActionListener() {
@@ -101,7 +122,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
         jPanel1.add(txtNumero1);
-        txtNumero1.setBounds(210, 130, 370, 50);
+        txtNumero1.setBounds(220, 160, 370, 50);
 
         btnSumar.setBackground(new java.awt.Color(0, 255, 0));
         btnSumar.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
@@ -112,7 +133,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnSumar);
-        btnSumar.setBounds(100, 370, 140, 23);
+        btnSumar.setBounds(80, 390, 140, 23);
 
         btnRestar.setBackground(new java.awt.Color(0, 255, 255));
         btnRestar.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
@@ -123,24 +144,68 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnRestar);
-        btnRestar.setBounds(390, 370, 150, 29);
+        btnRestar.setBounds(370, 390, 150, 29);
 
         lblNumero3.setFont(new java.awt.Font("Lao MN", 3, 24)); // NOI18N
         lblNumero3.setForeground(new java.awt.Color(102, 102, 102));
         lblNumero3.setText("Numero 2");
         jPanel1.add(lblNumero3);
-        lblNumero3.setBounds(20, 200, 180, 40);
+        lblNumero3.setBounds(30, 240, 180, 40);
 
         txtNumero2.setToolTipText("Ingrese el segundo numero");
         jPanel1.add(txtNumero2);
-        txtNumero2.setBounds(210, 200, 370, 50);
+        txtNumero2.setBounds(240, 230, 370, 50);
 
         jcbOpciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "suma", "resta", "multiplicacion", "division" }));
         jPanel1.add(jcbOpciones);
-        jcbOpciones.setBounds(210, 80, 370, 30);
+        jcbOpciones.setBounds(210, 120, 370, 30);
+
+        jcbMenu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Calculadora", "CRUD" }));
+        jcbMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbMenuActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jcbMenu);
+        jcbMenu.setBounds(230, 50, 280, 23);
+
+        btnAgregar.setText("Agregar Persona");
+        btnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAgregarMouseClicked(evt);
+            }
+        });
+        jPanel1.add(btnAgregar);
+        btnAgregar.setBounds(60, 390, 200, 40);
+
+        btnModificar.setText("Modifiar");
+        btnModificar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnModificarMouseClicked(evt);
+            }
+        });
+        jPanel1.add(btnModificar);
+        btnModificar.setBounds(270, 390, 170, 40);
+
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEliminarMouseClicked(evt);
+            }
+        });
+        jPanel1.add(btnEliminar);
+        btnEliminar.setBounds(490, 390, 140, 40);
+
+        jcbPersonas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbPersonasActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jcbPersonas);
+        jcbPersonas.setBounds(220, 80, 290, 23);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(10, 10, 750, 520);
+        jPanel1.setBounds(0, 0, 750, 520);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -164,6 +229,91 @@ public class PantallaPrincipal extends javax.swing.JFrame {
        total = numero1-numero2;
        txtResultado.setText(total+"");
     }//GEN-LAST:event_btnRestarMouseClicked
+
+    private void jcbMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbMenuActionPerformed
+      //este codigo se ejecuta cuando el usuario selecciona algo del dropddown
+        System.out.println("Index seleccionado "+ jcbMenu.getSelectedIndex());
+        //conversion de object a string 
+//        String selected = jcbMenu.getSelectedItem().toString();
+        String selected = (String)jcbMenu.getSelectedItem();
+        
+        if(selected.equalsIgnoreCase("crud")){
+            System.out.println("ENTRANDO AL CRUD");
+            btnRestar.setVisible(false);
+            btnSumar.setVisible(false);
+            txtResultado.setVisible(false);
+            lblResultado.setVisible(false);
+            jcbOpciones.setVisible(false);
+            jcbPersonas.setVisible(true);
+            btnAgregar.setVisible(true);
+            lblNumero1.setText("ID");
+            lblNumero3.setText("Nombre: ");
+
+        }else{
+            System.out.println("entrando calculadora");
+            btnRestar.setVisible(true);
+            btnSumar.setVisible(true);
+              txtResultado.setVisible(true);
+            lblResultado.setVisible(true);
+            jcbOpciones.setVisible(true);
+            lblNumero1.setText("Numero 1: ");
+            lblNumero3.setText("Numero 2: ");
+            jcbPersonas.setVisible(false);
+            btnAgregar.setVisible(false);
+        }
+        
+        lblNumero1.setVisible(true);
+            lblNumero3.setVisible(true);
+            txtNumero1.setVisible(true);
+            txtNumero2.setVisible(true);
+
+    }//GEN-LAST:event_jcbMenuActionPerformed
+
+    private void btnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseClicked
+        
+        int id = Integer.parseInt(txtNumero1.getText());
+        String nombre = txtNumero2.getText();
+        Persona p = new Persona(nombre,id);
+        
+        
+        // agreguen los objetos. 
+        // obtenemos el modelo (lo que maneja la informacion) actual del combobox
+        DefaultComboBoxModel modelo = (DefaultComboBoxModel)jcbPersonas.getModel();
+        modelo.addElement(p);// estamos agregando todo el objeto al combobox
+        jcbPersonas.setModel(modelo); // agregamos el nuevo modelo actualizado
+        JOptionPane.showMessageDialog(rootPane,"Persona agregada");
+    }//GEN-LAST:event_btnAgregarMouseClicked
+
+    private void jcbPersonasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbPersonasActionPerformed
+        personaSeleccionada = (Persona) jcbPersonas.getSelectedItem();
+        txtNumero1.setText(personaSeleccionada.getId()+"'");
+        txtNumero2.setText(personaSeleccionada.getNombre());
+    }//GEN-LAST:event_jcbPersonasActionPerformed
+
+    private void btnModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMouseClicked
+        // TODO add your handling code here:
+        //Modificar la informacion 
+        String nuevoNombre = txtNumero2.getText();
+        int nuevoId = Integer.parseInt(txtNumero1.getText());
+        
+        if(personaSeleccionada!=null){
+            personaSeleccionada.setId(nuevoId);
+            personaSeleccionada.setNombre(nuevoNombre);
+            JOptionPane.showMessageDialog(rootPane,"persona actualizada");
+        }else{
+            JOptionPane.showMessageDialog(rootPane,"Seleccione una persona");
+        }
+        
+ 
+        
+    }//GEN-LAST:event_btnModificarMouseClicked
+
+    private void btnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseClicked
+        // TODO add your handling code here:
+        jcbPersonas.removeItem(personaSeleccionada);
+        //jcbPersonas.remove(0);
+        JOptionPane.showMessageDialog(rootPane,"Se elimino a la persona");
+    }//GEN-LAST:event_btnEliminarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -201,12 +351,18 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }
     
     public int total;
-
+    ArrayList<Persona> listaPersonas = new ArrayList<>();
+    Persona personaSeleccionada;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRestar;
     private javax.swing.JButton btnSumar;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JComboBox<String> jcbMenu;
     private javax.swing.JComboBox<String> jcbOpciones;
+    private javax.swing.JComboBox<String> jcbPersonas;
     private javax.swing.JLabel lblNumero1;
     private javax.swing.JLabel lblNumero3;
     private javax.swing.JLabel lblResultado;
