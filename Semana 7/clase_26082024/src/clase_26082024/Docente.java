@@ -8,10 +8,17 @@ package clase_26082024;
  *
  * @author claudiacortes
  */
-public class Docente extends Usuario{
+public class Docente extends Usuario {
+
     String Facultad;
+
     public Docente(int id, String nombre, String Facultad) {
         super(id, nombre);
     }
-    
+
+    @Override
+    public String toString() {
+        return this.Facultad+"-"+this.nombre;
+    }
+
 }

@@ -9,8 +9,8 @@ package clase_26082024;
  * @author claudiacortes
  */
 public class Usuario {
-    private int id;
-    private String nombre;
+    protected int id;
+    protected String nombre;
 
     public Usuario(int id, String nombre) {
         this.id = id;

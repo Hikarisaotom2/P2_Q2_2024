@@ -21,10 +21,38 @@ public class Principal extends javax.swing.JFrame {
         //aqui aun no se han creado los elementos visuales
         initComponents(); // aqui se estan reando los elementos visuales 
         // aqui, ya se crearon los elementos visuales, aunque aun no se esten mostrando
-        DefaultTreeModel modelo = (DefaultTreeModel)jt_arbolUsuarios.getModel();
+        vaciarArbol();
+        agregarCategoriasUsuarios();
+    }
+    
+    private void vaciarArbol(){
+             DefaultTreeModel modelo = (DefaultTreeModel)jt_arbolUsuarios.getModel();
         DefaultMutableTreeNode raiz = (DefaultMutableTreeNode)modelo.getRoot();
         raiz.removeAllChildren();
         modelo.reload();
+    }
+    
+    private void agregarCategoriasUsuarios(){
+        /*
+        1. docentes
+        2. alumnos
+        */
+        DefaultTreeModel modelo = (DefaultTreeModel)jt_arbolUsuarios.getModel();
+        DefaultMutableTreeNode raiz = (DefaultMutableTreeNode)modelo.getRoot();
+        
+       DefaultMutableTreeNode nodoDocente = new DefaultMutableTreeNode("Docentes");
+       DefaultMutableTreeNode nodoAlumnos = new DefaultMutableTreeNode("Alumnos");
+       //agregar los hijos a la raiz
+       raiz.add(nodoDocente);
+       raiz.add(nodoAlumnos);
+       // recargar el modelo para que se actualice la informacion,  caso contrario se ostrara informacion vieja
+        modelo.reload();
+        //bloqueando campos 
+         txt_carrera.setEnabled(false);
+         txt_facultad.setEnabled(true);
+         txt_id.setEnabled(false);
+         txt_id.setText(contadorId+"");
+         
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -37,30 +65,184 @@ public class Principal extends javax.swing.JFrame {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         jt_arbolUsuarios = new javax.swing.JTree();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        btn_agregarUsuario = new javax.swing.JButton();
+        txt_id = new javax.swing.JTextField();
+        txt_nombre = new javax.swing.JTextField();
+        txt_carrera = new javax.swing.JTextField();
+        txt_facultad = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jcb_tipoUsuario = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jt_arbolUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jt_arbolUsuariosMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jt_arbolUsuarios);
+
+        jLabel1.setText("Nombre");
+
+        jLabel2.setText("id generado");
+
+        jLabel3.setText("Carrera");
+
+        jLabel4.setText("Facultad");
+
+        btn_agregarUsuario.setText("Agregar");
+        btn_agregarUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_agregarUsuarioMouseClicked(evt);
+            }
+        });
+        btn_agregarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_agregarUsuarioActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Usuarios registrados");
+
+        jcb_tipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Docente", "Alumno" }));
+        jcb_tipoUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcb_tipoUsuarioActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Tipo usuario");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(157, 157, 157)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(272, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel1)
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(jLabel6))
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jcb_tipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btn_agregarUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txt_nombre)
+                        .addComponent(txt_id)
+                        .addComponent(txt_carrera)
+                        .addComponent(txt_facultad, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(65, 65, 65))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(11, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(269, 269, 269))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(jcb_tipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(txt_carrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(14, 14, 14)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(txt_facultad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_agregarUsuario)))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_agregarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarUsuarioActionPerformed
+  
+        int id = Integer.parseInt(txt_id.getText());
+        String nombre = txt_nombre.getText();
+        // acceder al modelo (contiene la informacion)
+        DefaultTreeModel modelo = (DefaultTreeModel) jt_arbolUsuarios.getModel();
+        //acceder a la raiz, SIEMPRE ES EL PUNTO DE PARTIDA
+        DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) modelo.getRoot();
+//        raiz.getChildCount(); EQUIVALENTE AL .LENGTH O .SIZE DE LOS ARRAYLIST /ARRAYS
+          
+        if(jcb_tipoUsuario.getSelectedIndex()==0){
+            String facultad = txt_facultad.getText();
+            Docente docente = new Docente(id,nombre,facultad);
+            DefaultMutableTreeNode nodoDocente = (DefaultMutableTreeNode)raiz.getChildAt(0);
+            DefaultMutableTreeNode nodoNuevoDocente = new DefaultMutableTreeNode(docente);
+            //agregar el nueo docente como hijo del nodo docente
+            nodoDocente.add(nodoNuevoDocente);
+        }else{
+            String carrera = txt_carrera.getText();
+            Alumno alumno = new Alumno(id,nombre,carrera);
+            DefaultMutableTreeNode nodoAlumno = (DefaultMutableTreeNode)raiz.getChildAt(1);
+            DefaultMutableTreeNode nodoNuevoAlumno= new DefaultMutableTreeNode(alumno);
+            //agregar el nueo docente como hijo del nodo docente
+            nodoAlumno.add(nodoNuevoAlumno);
+        }
+        
+        //actualizar el modelo paraque muestre la informacion correcta
+        modelo.reload();
+        
+    }//GEN-LAST:event_btn_agregarUsuarioActionPerformed
+
+    private void jcb_tipoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcb_tipoUsuarioActionPerformed
+        // TODO add your handling code here:
+        if(jcb_tipoUsuario.getSelectedIndex()==0){
+            txt_carrera.setEnabled(false);
+            txt_facultad.setEnabled(true);
+        }else{
+            txt_carrera.setEnabled(true);
+            txt_facultad.setEnabled(false);
+        }
+        
+//        boolean esDocente= jcb_tipoUsuario.getSelectedIndex()==0;
+//         txt_carrera.setEnabled(!esDocente);
+//          txt_carrera.setEnabled(esDocente);
+        
+    }//GEN-LAST:event_jcb_tipoUsuarioActionPerformed
+
+    private void btn_agregarUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_agregarUsuarioMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_agregarUsuarioMouseClicked
+
+    private void jt_arbolUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_arbolUsuariosMouseClicked
+        for (int i = 0; i < jt_arbolUsuarios.getSelectionPaths().length; i++) {
+            //mostrando los elemtnos seleciconados
+            System.out.println(i+") "+ jt_arbolUsuarios.getSelectionPaths()[i].toString()); 
+        }
+    }//GEN-LAST:event_jt_arbolUsuariosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -96,9 +278,21 @@ public class Principal extends javax.swing.JFrame {
             }
         });
     }
-
+    int contadorId=1;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_agregarUsuario;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JComboBox<String> jcb_tipoUsuario;
     private javax.swing.JTree jt_arbolUsuarios;
+    private javax.swing.JTextField txt_carrera;
+    private javax.swing.JTextField txt_facultad;
+    private javax.swing.JTextField txt_id;
+    private javax.swing.JTextField txt_nombre;
     // End of variables declaration//GEN-END:variables
 }

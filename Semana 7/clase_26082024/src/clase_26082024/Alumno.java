@@ -11,9 +11,14 @@ package clase_26082024;
 public class Alumno extends Usuario{
     String Carrera;
 
-    public Alumno(String Carrera, int id, String nombre) {
+    public Alumno(int id, String nombre,String Carrera) {
         super(id, nombre);
         this.Carrera = Carrera;
+    }
+
+    @Override
+    public String toString() {
+        return  this.nombre+ "("+this.Carrera+")";
     }
     
     
