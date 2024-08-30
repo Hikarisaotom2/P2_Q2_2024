@@ -14,7 +14,17 @@ public class Docente extends Usuario {
 
     public Docente(int id, String nombre, String Facultad) {
         super(id, nombre);
+        this.Facultad = Facultad;
     }
+
+    public String getFacultad() {
+        return Facultad;
+    }
+
+    public void setFacultad(String Facultad) {
+        this.Facultad = Facultad;
+    }
+    
 
     @Override
     public String toString() {

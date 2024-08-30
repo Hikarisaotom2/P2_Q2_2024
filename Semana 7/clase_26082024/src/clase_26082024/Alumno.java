@@ -16,6 +16,15 @@ public class Alumno extends Usuario{
         this.Carrera = Carrera;
     }
 
+    public String getCarrera() {
+        return Carrera;
+    }
+
+    public void setCarrera(String Carrera) {
+        this.Carrera = Carrera;
+    }
+    
+
     @Override
     public String toString() {
         return  this.nombre+ "("+this.Carrera+")";

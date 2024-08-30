@@ -5,6 +5,8 @@
 package clase_26082024;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
@@ -24,6 +26,21 @@ public class Principal extends javax.swing.JFrame {
         // aqui, ya se crearon los elementos visuales, aunque aun no se esten mostrando
         vaciarArbol();
         agregarCategoriasUsuarios();
+        vaciarTabla();
+        agregarColumnas();
+    }
+    
+    private void vaciarTabla(){
+        DefaultTableModel modelo = new DefaultTableModel();
+        jt_tablaUsuarios.setModel(modelo);
+    }
+    
+    private void agregarColumnas(){
+        DefaultTableModel modelo = (DefaultTableModel)jt_tablaUsuarios.getModel();
+        //agregar columnas
+        modelo.addColumn("Id");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Facultad / Carrera");   
     }
     
     private void vaciarArbol(){
@@ -88,6 +105,9 @@ public class Principal extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jp_table = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jt_tablaUsuarios = new javax.swing.JTable();
+        btn_eliminarUsuarioTabla = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -276,15 +296,52 @@ public class Principal extends javax.swing.JFrame {
 
         jtp_tabs.addTab("JList", jp_list);
 
+        jt_tablaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jt_tablaUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jt_tablaUsuariosMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(jt_tablaUsuarios);
+
+        btn_eliminarUsuarioTabla.setText("Eliminar");
+        btn_eliminarUsuarioTabla.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_eliminarUsuarioTablaMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jp_tableLayout = new javax.swing.GroupLayout(jp_table);
         jp_table.setLayout(jp_tableLayout);
         jp_tableLayout.setHorizontalGroup(
             jp_tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 625, Short.MAX_VALUE)
+            .addGroup(jp_tableLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jp_tableLayout.createSequentialGroup()
+                .addGap(255, 255, 255)
+                .addComponent(btn_eliminarUsuarioTabla)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jp_tableLayout.setVerticalGroup(
             jp_tableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 284, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_tableLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btn_eliminarUsuarioTabla)
+                .addGap(44, 44, 44))
         );
 
         jtp_tabs.addTab("Jtable", jp_table);
@@ -323,6 +380,10 @@ public class Principal extends javax.swing.JFrame {
         modeloLista.addElement(nombre);
         modeloListaLogs.addElement("Agregar elemento:");
         jl_log.setModel(modeloListaLogs);
+        
+        //obtener modelo actual de la lista
+         DefaultListModel modelTest = (DefaultListModel) jl_log.getModel();
+         
         jl_todosLosUsuarios.setModel(modeloLista);
         if(jcb_tipoUsuario.getSelectedIndex()==0){
             String facultad = txt_facultad.getText();
@@ -331,8 +392,9 @@ public class Principal extends javax.swing.JFrame {
             DefaultMutableTreeNode nodoNuevoDocente = new DefaultMutableTreeNode(docente);
             //agregar el nueo docente como hijo del nodo docente
             nodoDocente.add(nodoNuevoDocente);
-            
- 
+            //agregando un objeto al modelo 
+            modelTest.addElement(docente);
+            agregarFila(docente);
         }else{
             String carrera = txt_carrera.getText();
             Alumno alumno = new Alumno(id,nombre,carrera);
@@ -340,13 +402,25 @@ public class Principal extends javax.swing.JFrame {
             DefaultMutableTreeNode nodoNuevoAlumno= new DefaultMutableTreeNode(alumno);
             //agregar el nueo docente como hijo del nodo docente
             nodoAlumno.add(nodoNuevoAlumno);
+            agregarFila(alumno);
         }
         
         //actualizar el modelo paraque muestre la informacion correcta
         modelo.reload();
         
     }//GEN-LAST:event_btn_agregarUsuarioActionPerformed
-
+    private void agregarFila(Usuario user){
+        DefaultTableModel modelo = (DefaultTableModel) jt_tablaUsuarios.getModel();
+        if(user instanceof Docente){
+            modelo.addRow( new Object[]{user.getId(), user.getNombre(),((Docente) user).getFacultad()});
+        }else if(user instanceof Alumno){
+            modelo.addRow(new Object[]{user.getId(), user.getNombre(), ((Alumno) user).getCarrera()});
+        }else{
+            System.out.println("Usuario no valido");
+        }
+        JLabel nuevaLabel = new JLabel();
+        nuevaLabel.setText("hola Mundo");
+    }
     private void jcb_tipoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcb_tipoUsuarioActionPerformed
         // TODO add your handling code here:
         if(jcb_tipoUsuario.getSelectedIndex()==0){
@@ -417,6 +491,34 @@ public class Principal extends javax.swing.JFrame {
         modeloListaLogs.addElement("Pos seleccionada seleccionado cambio a " + jl_todosLosUsuarios.getSelectedIndex());
     }//GEN-LAST:event_jl_todosLosUsuariosMouseClicked
 
+    private void jt_tablaUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_tablaUsuariosMouseClicked
+        int filaSeleccionada = jt_tablaUsuarios.getSelectedRow();
+        int columnaSeleccionada = jt_tablaUsuarios.getSelectedColumn();
+        System.out.println("fila: "+filaSeleccionada);
+        System.out.println("Columna: "+columnaSeleccionada);
+        DefaultTableModel modelo = (DefaultTableModel) jt_tablaUsuarios.getModel();
+        if(filaSeleccionada>=0 && filaSeleccionada<=jt_tablaUsuarios.getRowCount() ){
+            
+            for (int j = 0; j <jt_tablaUsuarios.getColumnCount() ; j++) { //nos ayuda a recorrer las columnas
+                Object objetoEncelda=modelo.getValueAt(filaSeleccionada, j); // seria similar a matriz[i][j]
+//                if(objetoEncelda instanceof Docente){
+//                    
+//                }
+                  System.out.println("El objeto en la celda "+filaSeleccionada+", "+j+": "+objetoEncelda.toString());
+            }
+        }
+    }//GEN-LAST:event_jt_tablaUsuariosMouseClicked
+
+    private void btn_eliminarUsuarioTablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_eliminarUsuarioTablaMouseClicked
+        DefaultTableModel modelo = (DefaultTableModel) jt_tablaUsuarios.getModel();
+         int filaSeleccionada = jt_tablaUsuarios.getSelectedRow();
+          if(filaSeleccionada>=0 && filaSeleccionada<=jt_tablaUsuarios.getRowCount() ){
+              modelo.removeRow(filaSeleccionada);
+          }else{
+              System.out.println("No se puede eliminar");
+          }
+    }//GEN-LAST:event_btn_eliminarUsuarioTablaMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -456,6 +558,7 @@ public class Principal extends javax.swing.JFrame {
     DefaultListModel modeloListaLogs = new DefaultListModel();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_agregarUsuario;
+    private javax.swing.JButton btn_eliminarUsuarioTabla;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -467,6 +570,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JComboBox<String> jcb_tipoUsuario;
     private javax.swing.JList<String> jl_log;
     private javax.swing.JList<String> jl_todosLosUsuarios;
@@ -474,6 +578,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel jp_list;
     private javax.swing.JPanel jp_table;
     private javax.swing.JTree jt_arbolUsuarios;
+    private javax.swing.JTable jt_tablaUsuarios;
     private javax.swing.JTabbedPane jtp_tabs;
     private javax.swing.JTextField txt_carrera;
     private javax.swing.JTextField txt_facultad;
