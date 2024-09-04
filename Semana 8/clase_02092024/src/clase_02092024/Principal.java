@@ -27,13 +27,15 @@ public class Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         jd_DialogPrincipal = new javax.swing.JDialog();
-        jLabel1 = new javax.swing.JLabel();
+        lbl_mensajedialog = new javax.swing.JLabel();
         lbl_mensajeDialog = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jpm_popMenuOpciones = new javax.swing.JPopupMenu();
         jmi_color = new javax.swing.JMenuItem();
         jmi_limpiar = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         btn_mostrarDialog = new javax.swing.JButton();
@@ -43,8 +45,12 @@ public class Principal extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         txt_textoEtiqueta = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
+        btn_cargarArchivo = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jta_archivo = new javax.swing.JTextArea();
+        btn_guardarArchivo = new javax.swing.JButton();
 
-        jLabel1.setText("Hola Mundo!");
+        lbl_mensajedialog.setText("Hola Mundo!");
 
         jButton1.setText("Limpiar Texto");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -67,7 +73,7 @@ public class Principal extends javax.swing.JFrame {
                     .addGroup(jd_DialogPrincipalLayout.createSequentialGroup()
                         .addGap(259, 259, 259)
                         .addGroup(jd_DialogPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
+                            .addComponent(lbl_mensajedialog)
                             .addGroup(jd_DialogPrincipalLayout.createSequentialGroup()
                                 .addGap(115, 115, 115)
                                 .addComponent(lbl_mensajeDialog))
@@ -80,7 +86,7 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(69, 69, 69)
                 .addComponent(jLabel2)
                 .addGap(41, 41, 41)
-                .addComponent(jLabel1)
+                .addComponent(lbl_mensajedialog)
                 .addGap(136, 136, 136)
                 .addComponent(lbl_mensajeDialog, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
@@ -92,7 +98,29 @@ public class Principal extends javax.swing.JFrame {
         jpm_popMenuOpciones.add(jmi_color);
 
         jmi_limpiar.setText("Limpiar Label");
+        jmi_limpiar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jmi_limpiarMouseClicked(evt);
+            }
+        });
+        jmi_limpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_limpiarActionPerformed(evt);
+            }
+        });
         jpm_popMenuOpciones.add(jmi_limpiar);
+
+        jMenu1.setText("Mostrar");
+
+        jMenuItem1.setText("Mostrar Dialog");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jpm_popMenuOpciones.add(jMenu1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -100,6 +128,9 @@ public class Principal extends javax.swing.JFrame {
         btn_mostrarDialog.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_mostrarDialogMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_mostrarDialogMouseExited(evt);
             }
         });
 
@@ -129,6 +160,8 @@ public class Principal extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Dialogs", jPanel1);
 
+        lbl_etiquetaPopUpMenu.setBackground(new java.awt.Color(204, 255, 204));
+        lbl_etiquetaPopUpMenu.setForeground(new java.awt.Color(255, 0, 0));
         lbl_etiquetaPopUpMenu.setText("EditarTexto");
         lbl_etiquetaPopUpMenu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -155,12 +188,12 @@ public class Principal extends javax.swing.JFrame {
                         .addGap(193, 193, 193)
                         .addComponent(jButton2))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(159, 159, 159)
-                        .addComponent(lbl_etiquetaPopUpMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(184, 184, 184)
-                        .addComponent(txt_textoEtiqueta, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(191, Short.MAX_VALUE))
+                        .addComponent(txt_textoEtiqueta, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(lbl_etiquetaPopUpMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,15 +209,40 @@ public class Principal extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Pop up Menus", jPanel2);
 
+        btn_cargarArchivo.setText("Cargar Archivo");
+
+        jta_archivo.setColumns(20);
+        jta_archivo.setRows(5);
+        jScrollPane1.setViewportView(jta_archivo);
+
+        btn_guardarArchivo.setText("Guardar Archivo");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 607, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btn_cargarArchivo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_guardarArchivo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 373, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(74, 74, 74)
+                        .addComponent(btn_cargarArchivo)
+                        .addGap(47, 47, 47)
+                        .addComponent(btn_guardarArchivo)))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Archivos", jPanel3);
@@ -195,7 +253,7 @@ public class Principal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addComponent(jTabbedPane1)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 607, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -212,7 +270,7 @@ public class Principal extends javax.swing.JFrame {
     private void btn_mostrarDialogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_mostrarDialogMouseClicked
         jd_DialogPrincipal.setVisible(true);
         String mensaje = txt_mensaje.getText();
-        lbl_mensajeDialog.setText(mensaje);
+        lbl_mensajedialog.setText(mensaje);
 //        jd_DialogPrincipal.setVisible(false); cierra/ oculta el dialog
     }//GEN-LAST:event_btn_mostrarDialogMouseClicked
 
@@ -226,8 +284,35 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void lbl_etiquetaPopUpMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_etiquetaPopUpMenuMouseClicked
-       jpm_popMenuOpciones.show(this,evt.getX() ,evt.getY() );
+        // INVOKER, x, y 
+        
+        if(evt.getButton() == 3){
+//    if(evt.isPopupTrigger()){ //usarse con mouse pressed
+             jpm_popMenuOpciones.show(lbl_etiquetaPopUpMenu,evt.getX() ,evt.getY());
+        }else{
+            System.out.println("No es click derecho");
+        }
+       
+        
     }//GEN-LAST:event_lbl_etiquetaPopUpMenuMouseClicked
+
+    private void btn_mostrarDialogMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_mostrarDialogMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_mostrarDialogMouseExited
+
+    private void jmi_limpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmi_limpiarMouseClicked
+     
+    }//GEN-LAST:event_jmi_limpiarMouseClicked
+
+    private void jmi_limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_limpiarActionPerformed
+           System.out.println("Hola mundo");
+        lbl_etiquetaPopUpMenu.setText("");
+     txt_textoEtiqueta.setText("");
+    }//GEN-LAST:event_jmi_limpiarActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        jd_DialogPrincipal.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -265,21 +350,27 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_cargarArchivo;
+    private javax.swing.JButton btn_guardarArchivo;
     private javax.swing.JButton btn_mostrarDialog;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JDialog jd_DialogPrincipal;
     private javax.swing.JMenuItem jmi_color;
     private javax.swing.JMenuItem jmi_limpiar;
     private javax.swing.JPopupMenu jpm_popMenuOpciones;
+    private javax.swing.JTextArea jta_archivo;
     private javax.swing.JLabel lbl_etiquetaPopUpMenu;
     private javax.swing.JLabel lbl_mensajeDialog;
+    private javax.swing.JLabel lbl_mensajedialog;
     private javax.swing.JTextField txt_mensaje;
     private javax.swing.JTextField txt_textoEtiqueta;
     // End of variables declaration//GEN-END:variables
