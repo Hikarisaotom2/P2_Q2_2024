@@ -4,6 +4,15 @@
  */
 package clase_02092024;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+
 /**
  *
  * @author claudiacortes
@@ -210,6 +219,11 @@ public class Principal extends javax.swing.JFrame {
         jTabbedPane1.addTab("Pop up Menus", jPanel2);
 
         btn_cargarArchivo.setText("Cargar Archivo");
+        btn_cargarArchivo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_cargarArchivoMouseClicked(evt);
+            }
+        });
 
         jta_archivo.setColumns(20);
         jta_archivo.setRows(5);
@@ -226,23 +240,23 @@ public class Principal extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btn_cargarArchivo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_guardarArchivo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addGap(41, 41, 41)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(74, 74, 74)
+                        .addGap(82, 82, 82)
                         .addComponent(btn_cargarArchivo)
-                        .addGap(47, 47, 47)
-                        .addComponent(btn_guardarArchivo)))
-                .addContainerGap(58, Short.MAX_VALUE))
+                        .addGap(48, 48, 48)
+                        .addComponent(btn_guardarArchivo))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Archivos", jPanel3);
@@ -253,7 +267,7 @@ public class Principal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 607, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -314,6 +328,36 @@ public class Principal extends javax.swing.JFrame {
         jd_DialogPrincipal.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void btn_cargarArchivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_cargarArchivoMouseClicked
+        JFileChooser fileChooser = new JFileChooser();
+        int state = fileChooser.showOpenDialog(this);
+        
+        if(state == JFileChooser.APPROVE_OPTION){
+            File seleccionado = fileChooser.getSelectedFile();
+            System.out.println("RUTAS DEL ARCHIVO SELECCIONADO");
+            System.out.println(seleccionado.getName()); //nombre del archivo
+            System.out.println(seleccionado.getAbsolutePath()); // ruta absooluta / estatica 
+            System.out.println(seleccionado.getPath()); // regresala ruta relativa 
+            
+            try{
+                BufferedReader br = new BufferedReader(new FileReader(seleccionado)); 
+                String linea;
+                jta_archivo.setText("");
+                do {
+                    linea = br.readLine();// va leyendo 
+//                    System.out.println(linea);
+                    if(linea!=null){
+                       jta_archivo.append(linea+"\n");
+                    }
+                } while (linea!=null);
+            }catch(IOException e){
+                
+            }
+        }else{
+            System.out.println("No hay archivos para trabajar");
+        }
+    }//GEN-LAST:event_btn_cargarArchivoMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -348,6 +392,8 @@ public class Principal extends javax.swing.JFrame {
             }
         });
     }
+    
+    ArrayList<String> l = new ArrayList<String>();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_cargarArchivo;
