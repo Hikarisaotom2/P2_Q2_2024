@@ -1,0 +1,20 @@
+Ruta estatica: 
+Viene desde el disco duro, suele ser mas extensa y detallada
+
+desventaja: no va a ser la misa para todos los programas.
+ejemplo de un archivo en la carpeta de descargas: 
+c://users/joseph/downloads/archivos
+users/claudiacortes/downloads/archivo
+
+Ruta relativa: 
+es mas corta, y trabaja en relacion a el lugar actual donde se este 
+/downloads/archivo
+
+sibologia: 
+/ entrar a una carpeta o directorio 
+.. salir del directorio actual 
+
+/Users/claudiacortes/Desktop/EjemploRutas/folder2/ARCHIVO1/archivo.txt -> NO VA A FUNCIONAR EN OTRA COPUTADORA
+
+folder2/ARCHIVO1/archivo.txt
+

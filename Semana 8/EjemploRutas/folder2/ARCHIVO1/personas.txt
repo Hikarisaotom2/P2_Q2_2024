@@ -1,0 +1,23 @@
+
+tipo,nombre,edad,sexo,(opcional) lista de facultades
+estudiante,claudia,50,F
+docente,Reynod,50,M,[FI-FCAS-FCS]
+
+docente
+Reynod
+50
+M
+[FA,FCAS,FCS]
+FI
+FCAS
+FCS
+
+
+ if (valor.equalsIgnoreCase("docente")){
+    arrayList.add(FI)
+    arrayList.add(FCAS)
+    arrayList.add(FCS)
+    docente d = new Docente(reynod,50,M,);
+ }
+casteo - > conversion explicita de tipos 
+parseo -> separar en tokens algo

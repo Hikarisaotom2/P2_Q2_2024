@@ -5,8 +5,10 @@
 package clase_02092024;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -230,6 +232,11 @@ public class Principal extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jta_archivo);
 
         btn_guardarArchivo.setText("Guardar Archivo");
+        btn_guardarArchivo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_guardarArchivoMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -344,19 +351,56 @@ public class Principal extends javax.swing.JFrame {
                 String linea;
                 jta_archivo.setText("");
                 do {
-                    linea = br.readLine();// va leyendo 
-//                    System.out.println(linea);
+                    linea = br.readLine();// va leyendo cada linea
                     if(linea!=null){
                        jta_archivo.append(linea+"\n");
+                        String []tokens = linea.split(",");
+//                        System.out.println("tipo: "+tokens[0]);
+//                        System.out.println("nombre: "+tokens[1]);
+//                        System.out.println("edad: "+tokens[2]);
+//                        System.out.println("sexo: "+tokens[3]);
+//                        
+                        if(tokens.length>4){
+                            //tenemos el campo opcional
+                            String campoOpcional = tokens[tokens.length-1];
+                            campoOpcional = campoOpcional.substring(1,campoOpcional.length()-1);
+                            String [] facultades = campoOpcional.split("-");
+//                            for (String facultad : facultades) {
+//                                System.out.println("-> "+facultad);
+//                            }
+                        }
+//                    System.out.println(linea);
                     }
+
                 } while (linea!=null);
+                br.close();
             }catch(IOException e){
-                
+                System.out.println(e);
             }
         }else{
             System.out.println("No hay archivos para trabajar");
         }
     }//GEN-LAST:event_btn_cargarArchivoMouseClicked
+
+    private void btn_guardarArchivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_guardarArchivoMouseClicked
+         JFileChooser fileChooser = new JFileChooser();
+        int state = fileChooser.showOpenDialog(this);
+        
+        if(state == JFileChooser.APPROVE_OPTION){
+            File archivoSeleccionado = fileChooser.getSelectedFile();
+            try{                                                         // el archivo, appendMode
+                                                                                        // true -> append/agregar
+                                                                                        //false -> override/sobrescribir
+                BufferedWriter br = new BufferedWriter(new FileWriter(archivoSeleccionado,false));
+                String informacion = jta_archivo.getText();
+                br.write(informacion); //salvando el archivo
+                br.close();
+                System.out.println("ARCHIVO GUARDADO!!!!");
+            }catch(IOException e){
+                System.out.println("No se pudo escribir el archivo");
+            }
+        }
+    }//GEN-LAST:event_btn_guardarArchivoMouseClicked
 
     /**
      * @param args the command line arguments

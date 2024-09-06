@@ -1,0 +1,2 @@
+estudiante,claudia,50,F
+docente,Reynod

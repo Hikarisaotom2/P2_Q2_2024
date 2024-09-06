@@ -1,0 +1,5 @@
+estudiante,claudia,50,F
+docente,Reynod,50,M,[FI-FCAS-FCS]
+docente,Claudia,50,F,[FI]
+estudiante,Ana,19,F
+juan,perez,juan,juan
