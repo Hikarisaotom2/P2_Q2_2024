@@ -7,13 +7,16 @@ package clase_02092024;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,6 +29,39 @@ public class Principal extends javax.swing.JFrame {
      */
     public Principal() {
         initComponents();
+         // Crear un objeto Persona
+        Persona persona = new Persona("Claudia", 28);
+        
+        // Crear un JFileChooser para seleccionar la ubicación donde guardar el archivo
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Selecciona una ubicación para guardar el archivo");
+        
+        // Mostrar el diálogo de guardar archivo
+        int seleccion = fileChooser.showSaveDialog(null);
+        
+        // Verificar si el usuario seleccionó un archivo
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+            // Obtener el archivo seleccionado
+            File archivoSeleccionado = fileChooser.getSelectedFile();
+            
+            // Asegurarse de que el archivo tenga la extensión .bin
+            if (!archivoSeleccionado.getAbsolutePath().endsWith(".bin")) {
+                archivoSeleccionado = new File(archivoSeleccionado + ".bin");
+            }
+            
+            // Guardar el objeto en el archivo seleccionado
+            try (FileOutputStream archivo = new FileOutputStream(archivoSeleccionado);
+                 ObjectOutputStream salida = new ObjectOutputStream(archivo)) {
+
+                salida.writeObject(persona);
+                JOptionPane.showMessageDialog(null, "Objeto Persona guardado exitosamente en " + archivoSeleccionado.getAbsolutePath());
+                
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No se seleccionó ningún archivo.");
+        }
     }
 
     /**
